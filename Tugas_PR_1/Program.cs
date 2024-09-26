@@ -1,4 +1,4 @@
-﻿using System.Threading.Channels;
+using System.Threading.Channels;
 
 
 class Program 
@@ -25,32 +25,37 @@ class Program
         Reptil reptilBaru = new Reptil("Buaya D", 4, 10);
         Console.WriteLine(reptilBaru.Bersuara("bersuara"));
 
-        //daftar hewan
+        //7a.Buat objek kebun Binatang
+        KebunBinatang kebunBinatang1 = new KebunBinatang();
+
+        //7b. Buat beberapa objek dari berbagai jenis hewan (Singa, Gajah, Ular, Buaya)
         Singa singa1 = new Singa("Singa A", 12, 4, "Jinak");
         Console.WriteLine(singa1.nama + "| umur: " + singa1.umur + "| berkaki "+ singa1.jumlahKaki); //menampilkan informasi singa
         Gajah gajah1 = new Gajah("Gajah B", 5, 4, 3);
         Ular ular1 = new Ular("Ular C", 1, 23.6);
         Buaya buaya1 = new Buaya("Buaya D", 4, 10);
 
-        //Menjalankan method dari objek yang telah dibuat diatas 
-        ular1.Merayap();
-        singa1.Mengaum();
-        Console.WriteLine(ular1.Bersuara("desis"));
-        Console.WriteLine(gajah1.Bersuara("bersuara\n"));
-
-
-        //Objek kebun binatang
-        KebunBinatang kebunBinatang1 = new KebunBinatang();
-
+        //7c.Tambahkan hewan-hewan tersebut ke kebun binatang
         kebunBinatang1.TambahHewan(singa1);
         kebunBinatang1.TambahHewan(gajah1);
         kebunBinatang1.TambahHewan(ular1);
         kebunBinatang1.TambahHewan(buaya1);
 
+        //7d.Tambahkan hewan-hewan tersebut ke kebun binatang
         kebunBinatang1.DaftarHewan();
+
+        //7e. e.polymorphism dengan memanggil method Suara() untuk beberapa hewan berbeda
+        Console.WriteLine(ular1.Bersuara("desis"));
+        Console.WriteLine(gajah1.Bersuara("bersuara\n"));
+
+        //7f. Panggil method khusus seperti Mengaum() untuk Singa
+        singa1.Mengaum();
+        ular1.Merayap();
 
     }
 }
+
+    //2 a.Kelas Hewan dengan properti nama dan umur
 class Hewan
 {
     public string nama;
@@ -62,18 +67,21 @@ class Hewan
         this.umur = umur;
     }
 
-    // method diberi virtual sebab akan diwariskan dan merupakan superclass  
+    //3. method diberi virtual sebab akan diwariskan dan merupakan superclass  
+    //3 a.Suara(): Method yang mengembalikan string "Hewan ini bersuara"
     public virtual string Bersuara(string suara)
     {
         return $"Hewan ini bersuara {suara}";
     }
+
+    //3 b.InfoHewan(): Method yang mengembalikan informasi dasar hewan
     public virtual string InfoHewan()
     {
         return $"Nama: {nama}, Umur: {umur} tahun";
     }
 }
 
-//b.Kelas Mamalia yang mewarisi Hewan, dengan properti tambahan jumlahKaki
+    //2 b.Kelas Mamalia yang mewarisi Hewan, dengan properti tambahan jumlahKaki
 class Mamalia : Hewan
 {
     public int jumlahKaki;
@@ -84,6 +92,7 @@ class Mamalia : Hewan
         this.jumlahKaki = jumlahKaki;
     }
 
+    //4. Override method Suara() di setiap subkelas hewan dengan suara yang sesuai.
     // method diberi override yang akan diwarisi dan merupakan subclass  
     public override string Bersuara(string suara)
     {
@@ -94,7 +103,7 @@ class Mamalia : Hewan
 
 }
 
-//c.Kelas Reptil yang mewarisi Hewan, dengan properti tambahan panjangTubuh
+    //2 c.Kelas Reptil yang mewarisi Hewan, dengan properti tambahan panjangTubuh
 class Reptil: Hewan
 {
     public double panjangTubuh;
@@ -111,7 +120,7 @@ class Reptil: Hewan
 
 }
 
-//d.Kelas Singa yang mewarisi Mamalia
+    //2 d.Kelas Singa yang mewarisi Mamalia
 class Singa: Mamalia
 {
     public string sifat;
@@ -132,7 +141,7 @@ class Singa: Mamalia
     }
 }
 
-//d.Kelas Gajah yang mewarisi Mamalia
+    //2 d.Kelas Gajah yang mewarisi Mamalia
 class Gajah : Mamalia
 {
     public int Berat;
@@ -153,7 +162,7 @@ class Gajah : Mamalia
     }
 }
 
-//e.Kelas Ular yang mewarisi Reptil
+    //2 e.Kelas Ular yang mewarisi Reptil
 class Ular : Reptil
 {
     public Ular (string nama, int umur, double panjangTubuh) : base(nama, umur, panjangTubuh)
@@ -172,7 +181,7 @@ class Ular : Reptil
     }
 }
 
-// e. Buaya yang mewarisi Reptil
+    // e. Buaya yang mewarisi Reptil
 class Buaya : Reptil
 {
     public Buaya(string nama, int umur, double panjangTubuh) : base(nama, umur, panjangTubuh)
@@ -189,7 +198,7 @@ class Buaya : Reptil
 
 
 
-//f.Kelas KebunBinatang yang memiliki koleksi Hewan
+    //2 f.Kelas KebunBinatang yang memiliki koleksi Hewan
     class KebunBinatang
 {
     public List<Hewan> koleksiHewan;
